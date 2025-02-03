@@ -10,50 +10,56 @@ struct library{
 };
 int main(){
    struct library lib[100];
-   char bookname[30];
-   int i,j, keepcount;
-   i=j=keepcount = 0;
-   while(j!=6){
+   int i=0,j=0,keepcount = 0;
+   while(j!=4){
       printf("1. Add book information\n");
       printf("2. Display book information\n");
       printf("3. No of books in the library\n");
       printf("4. Exit\n");
       printf ("Enter one of the above : ");
       scanf("%d",&j);
+      getchar();
       switch (j){
          /* Add book */
          case 1:
             printf("=========================\n");
-            printf ("Enter book name = ");
-            scanf ("%s",lib[i].bookname);
-            printf ("Enter author name = ");
-            scanf ("%s",lib[i].author);
-            printf ("Enter pages = ");
+            printf ("Enter book name : ");
+            fgets(lib[i].bookname,sizeof(lib[i].bookname),stdin);
+            lib[i].bookname[strcspn(lib[i].bookname,"\n")]=0;
+            printf ("Enter author name : ");
+            fgets(lib[i].author,sizeof(lib[i].author),stdin);
+            lib[i].author[strcspn(lib[i].author,"\n")]=0;
+            printf ("Enter pages : ");
             scanf ("%d",&lib[i].noofpages);
-            printf ("Enter price = ");
+            printf ("Enter price : ");
             scanf ("%f",&lib[i].price);
+            getchar();
             keepcount++;
             i++;
             printf("===========================\n");
             break;
          case 2:
-            printf("you have entered the following information:\n");
+         /* Details of books present */
+            printf("Books present and their details:\n");
             for(i=0; i<keepcount; i++){
-                printf("==========================\n");
-               printf ("\t book name = %s\n",lib[i].bookname);
-               printf ("\t author name = %s\n",lib[i].author);
-               printf ("\t pages = %d\n",lib[i].noofpages);
-               printf ("\t price = %f\n",lib[i].price);
+               printf("================================\n");
+               printf ("\t book name : %s\n",lib[i].bookname);
+               printf ("\t author name : %s\n",lib[i].author);
+               printf ("\t pages : %d\n",lib[i].noofpages);
+               printf ("\t price : %f\n",lib[i].price);
                printf("================================\n");
             }
             break;
          case 3:
+         /* Total books */
             printf("===========================\n");
             printf("No of books in library : %d\n", keepcount);
             printf("===========================\n");
             break;
          case 4:
             exit (0);
+        default:
+        printf("Choose a valid input.\n===========================\n");
       }
    }
    return 0;
